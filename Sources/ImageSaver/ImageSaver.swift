@@ -11,7 +11,7 @@ public class ImageSaver: NSObject {
     }
 }
 
-public struct DownloadImageToGalleryFromURLStringButton{
+public struct DownloadImageToGalleryFromURLStringButton: View {
     public var urlString : String?
     public init(urlString: String!) {
         self.urlString = urlString
