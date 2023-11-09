@@ -16,6 +16,8 @@ public struct DownloadImageToGalleryFromURLStringButton: View {
     public init(urlString: String!) {
         self.urlString = urlString
     }
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     public var body: some View {
         Button {
             let inputImageString: String = urlString ?? "https://ik.imagekit.io/hpapi/harry.jpg"
@@ -26,12 +28,16 @@ public struct DownloadImageToGalleryFromURLStringButton: View {
             URLSession.shared.dataTask(with: imageURL) { data, response, error in
                 if let error = error {
                     print("Error downloading image data: \(error)")
+                    alertMessage = "Error downloading image"
+                    showAlert.toggle()
                     return
                 }
                 
                 if let data = data, let uiImage = UIImage(data: data) {
                     let imageSaver = ImageSaver()
                     imageSaver.writeToPhotoAlbum(image: uiImage)
+                    alertMessage = "image downloaded successfully"
+                    showAlert.toggle()
                 }
             }.resume()
         }
@@ -41,5 +47,8 @@ public struct DownloadImageToGalleryFromURLStringButton: View {
             .offset(x:20)
             .font(.system(size: 30))
     }
+    .alert(isPresented: $showAlert) {
+                Alert(title: Text("Image Download"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
     }
 }
