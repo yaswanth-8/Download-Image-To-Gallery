@@ -13,7 +13,10 @@ public class ImageSaver: NSObject {
 
 public struct DownloadImageToGalleryFromURLStringButton{
     var urlString : String!
-    var body: some View {
+    public init(urlString: String!) {
+        self.urlString = urlString
+    }
+    public var body: some View {
         Button {
             let inputImageString: String = urlString
             guard let imageURL = URL(string: inputImageString) else { return }
