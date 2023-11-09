@@ -12,13 +12,13 @@ public class ImageSaver: NSObject {
 }
 
 public struct DownloadImageToGalleryFromURLStringButton{
-    var urlString : String!
+    public var urlString : String?
     public init(urlString: String!) {
         self.urlString = urlString
     }
     public var body: some View {
         Button {
-            let inputImageString: String = urlString
+            let inputImageString: String = urlString ?? "https://ik.imagekit.io/hpapi/harry.jpg"
             guard let imageURL = URL(string: inputImageString) else { return }
             
             print("saved to gallery")
